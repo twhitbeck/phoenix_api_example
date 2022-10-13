@@ -25,12 +25,38 @@
 
     const formElement = event.target;
 
-    const person = {
-      firstName: formElement.elements["first-name"].value,
-      lastName: formElement.elements["last-name"].value,
-      email: formElement.elements["email"].value
-    };
+    fetch("/api/people", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        person: {
+          first_name: formElement.elements["first-name"].value,
+          last_name: formElement.elements["last-name"].value,
+          email: formElement.elements["email"].value,
+        }
+      })
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Bad request: ${response.status} ${response.statusText}`);
+      }
 
-    // TODO: Save the person to the db
+      return response.json();
+    }).then((responsePayload) => {
+      alert("Successfully created person");
+
+      // Note the person object is nested under the `data` property
+      console.log(responsePayload.data);
+
+      // TODO: Now what? Should we navigate the user away from the form?
+      // Should we reset the form and let them continue to create another user?
+
+      formElement.reset();
+    }).catch((error) => {
+      alert("ERROR creating person");
+
+      console.log(error);
+    });
   });
 </script>

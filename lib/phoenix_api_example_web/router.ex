@@ -21,9 +21,11 @@ defmodule PhoenixApiExampleWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PhoenixApiExampleWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", PhoenixApiExampleWeb do
+    pipe_through :api
+
+    resources "/people", PersonController
+  end
 
   # Enables LiveDashboard only for development
   #
