@@ -1,41 +1,36 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-</section>
+<form id="person-form">
+  <div>
+    <label for="first-name">First Name</label>
+    <input type="text" id="first-name" name="first-name" required>
+  </div>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.6/CHANGELOG.md">v1.6 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://web.libera.chat/#elixir">#elixir on Libera Chat (IRC)</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-      <li>
-        <a href="https://discord.gg/elixir">Elixir on Discord</a>
-      </li>
-    </ul>
-  </article>
-</section>
+  <div>
+    <label for="last-name">Last Name</label>
+    <input type="text" id="last-name" name="last-name" required>
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+
+  <button>Submit</button>
+</form>
+
+<script>
+  // Add a handler for the form's "submit" event
+  document.getElementById("person-form").addEventListener("submit", (event) => {
+    // The default behavior of form submission is to navigate, but since we're taking care of everything client-side let's prevent that
+    event.preventDefault();
+
+    const formElement = event.target;
+
+    const person = {
+      firstName: formElement.elements["first-name"].value,
+      lastName: formElement.elements["last-name"].value,
+      email: formElement.elements["email"].value
+    };
+
+    // TODO: Save the person to the db
+  });
+</script>
